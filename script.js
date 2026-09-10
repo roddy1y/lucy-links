@@ -16,7 +16,7 @@ const LINKS = [
   },
   {
     label: "𝒹𝒾𝓈𝒸𝑜𝓇𝒹",
-    url: "", // inserisci il link d'invito Discord quando disponibile
+    url: "https://discord.com/invite/mami",
     icon: "discord",
   },
   {
@@ -35,6 +35,7 @@ const SOCIALS = [
   { name: "Instagram", url: "https://www.instagram.com/lucymilks", icon: "instagram" },
   { name: "TikTok", url: "https://www.tiktok.com/@.succubae", icon: "tiktok" },
   { name: "Telegram", url: "https://t.me/lucyegirl", icon: "telegram" },
+  { name: "Discord", url: "https://discord.com/invite/mami", icon: "discord" },
 ];
 
 /* ---------- Icone SVG ---------- */
