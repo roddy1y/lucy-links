@@ -266,6 +266,8 @@ document.addEventListener("click", (e) => burst(e.clientX, e.clientY));
 /* ---------- Gattini 3D da schiacciare ---------- */
 
 const GOAL = 15;
+const REWARD_URL = "https://t.me/etilat"; // chat privata di Lucy
+const REWARD_DELAY = 1600; // ms prima del redirect
 const PET_MESSAGES = [
   "miao~ 💗", "purr purr", "ancora! ✨", "che coccole", "nyaa~", "sono tuo 🐾",
   "più forte!", "mrrrp", "adoro", "non fermarti", "meow meow", "❤️❤️❤️",
@@ -329,12 +331,15 @@ cards.forEach((card) => {
     if (petCount >= GOAL && !rewarded) {
       rewarded = true;
       reward.hidden = false;
+      document.getElementById("rewardBtn").href = REWARD_URL;
       setTimeout(() => reward.scrollIntoView({ behavior: "smooth", block: "center" }), 200);
       let n = 0;
       const rain = setInterval(() => {
         burst(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
         if (++n > 6) clearInterval(rain);
       }, 160);
+      // Redirect alla chat privata (stessa scheda: non viene bloccato dai popup blocker)
+      setTimeout(() => { window.location.href = REWARD_URL; }, REWARD_DELAY);
     }
   });
 });
