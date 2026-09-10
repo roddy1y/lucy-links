@@ -9,7 +9,7 @@
   <meta property="og:title" content="lucyegirl ݁Ი⑅𐑼">
   <meta property="og:description" content="tutti i miei link in un posto solo ⬇️">
   <meta property="og:image" content="assets/avatar.gif">
-  <meta name="theme-color" content="#E9E1E9">
+  <meta name="theme-color" content="#ff5fbf">
   <link rel="icon" href="assets/avatar.gif">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,21 +24,24 @@
       <h1>Hai almeno 18 anni?</h1>
       <p>Questo sito contiene link a contenuti riservati a un pubblico adulto.<br>Entrando confermi di essere maggiorenne.</p>
       <div class="gate-actions">
-        <button class="btn btn-fill" id="gateYes" type="button">Sì, ho più di 18 anni</button>
-        <a class="btn" href="https://www.google.com">No, esci</a>
+        <button class="btn btn-fill" id="gateYes" type="button">Sì, ho più di 18 anni 💗</button>
+        <a class="btn btn-ghost" href="https://www.google.com">No, esci</a>
       </div>
     </div>
   </div>
 
-  <canvas id="petals" aria-hidden="true"></canvas>
+  <canvas id="sparkles" aria-hidden="true"></canvas>
+  <div class="grid-bg" aria-hidden="true"></div>
 
   <main class="page" id="page">
     <!-- PROFILE -->
     <header class="profile">
-      <div class="avatar-ring">
-        <img class="avatar" src="assets/avatar.gif" alt="lucyegirl" width="120" height="120">
+      <div class="avatar-wrap">
+        <div class="avatar-ring"></div>
+        <img class="avatar" src="assets/avatar.gif" alt="lucyegirl" width="130" height="130">
       </div>
-      <h1 class="name">@lucyegirl <span class="deco">݁Ი⑅𐑼</span></h1>
+      <h1 class="name glitch" data-text="@lucyegirl">@lucyegirl</h1>
+      <p class="deco">݁Ი⑅𐑼 ˖ ݁𖥔 ݁ ˖</p>
       <p class="bio">tutti i miei contenuti esclusivi in un posto solo ⬇️</p>
       <p class="kaomoji">𝑚𝑒𝑜𝑤 ⋆‧°𓏲ּ</p>
     </header>
@@ -46,27 +49,74 @@
     <!-- MAIN LINKS -->
     <section class="links" id="links" aria-label="Link principali"></section>
 
+    <!-- KITTENS GAME -->
+    <section class="kittens" id="kittens">
+      <h2 class="section-title">𝓈𝒸𝒽𝒾𝒶𝒸𝒸𝒾𝒶 𝒾 𝑔𝒶𝓉𝓉𝒾𝓃𝒾 🐾</h2>
+      <p class="section-sub">tocca i gattini per coccolarli. a <strong id="goal">15</strong> coccole succede qualcosa…</p>
+
+      <div class="progress" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+      <p class="pet-counter"><span id="petCount">0</span> coccole 💗</p>
+
+      <div class="cards" id="cards">
+        <article class="card3d" data-name="Pixel">
+          <div class="card-inner">
+            <img src="https://cataas.com/cat/cute?width=400&height=400&t=11" alt="Gattino Pixel" loading="lazy">
+            <span class="card-fallback">🐱</span>
+            <div class="card-label">Pixel</div>
+          </div>
+        </article>
+        <article class="card3d" data-name="Mochi">
+          <div class="card-inner">
+            <img src="https://cataas.com/cat/cute?width=400&height=400&t=12" alt="Gattino Mochi" loading="lazy">
+            <span class="card-fallback">😺</span>
+            <div class="card-label">Mochi</div>
+          </div>
+        </article>
+        <article class="card3d" data-name="Nyan">
+          <div class="card-inner">
+            <img src="https://cataas.com/cat/cute?width=400&height=400&t=13" alt="Gattino Nyan" loading="lazy">
+            <span class="card-fallback">😻</span>
+            <div class="card-label">Nyan</div>
+          </div>
+        </article>
+        <article class="card3d" data-name="Kuro">
+          <div class="card-inner">
+            <img src="https://cataas.com/cat/cute?width=400&height=400&t=14" alt="Gattino Kuro" loading="lazy">
+            <span class="card-fallback">🐈‍⬛</span>
+            <div class="card-label">Kuro</div>
+          </div>
+        </article>
+      </div>
+
+      <div class="reward" id="reward" hidden>
+        <p class="reward-kaomoji">(≧◡≦) ♡</p>
+        <h3>Hai sbloccato il bonus gattino!</h3>
+        <p>Scrivimi <strong>"meow 🐾"</strong> su Telegram e dimmi che vieni dal sito: ti riservo una sorpresa.</p>
+        <a class="btn btn-fill" id="rewardBtn" href="https://t.me/lucyegirl" target="_blank" rel="noopener">Vai su Telegram 💗</a>
+      </div>
+    </section>
+
     <!-- HIGHLIGHTS -->
     <section class="highlights">
       <h2 class="section-title">𝒸𝑜𝓈𝒶 𝓉𝓇𝑜𝓋𝒾</h2>
-      <div class="cards">
-        <article class="card">
-          <span class="card-icon">🔒</span>
+      <div class="hl-grid">
+        <article class="hl">
+          <span class="hl-icon">🔒</span>
           <h3>Contenuti esclusivi</h3>
           <p>Foto e video che non trovi da nessun'altra parte, aggiornati spesso.</p>
         </article>
-        <article class="card">
-          <span class="card-icon">💬</span>
+        <article class="hl">
+          <span class="hl-icon">💬</span>
           <h3>Contatto diretto</h3>
           <p>Scrivimi su Telegram: rispondo io, non un bot.</p>
         </article>
-        <article class="card">
-          <span class="card-icon">🏷️</span>
+        <article class="hl">
+          <span class="hl-icon">🏷️</span>
           <h3>Listino chiaro</h3>
           <p>Prezzi trasparenti nel canale listino. Nessuna sorpresa.</p>
         </article>
-        <article class="card">
-          <span class="card-icon">🎁</span>
+        <article class="hl">
+          <span class="hl-icon">🎁</span>
           <h3>Richieste personalizzate</h3>
           <p>Hai un'idea? Parliamone in privato.</p>
         </article>
@@ -77,9 +127,9 @@
     <section class="steps">
       <h2 class="section-title">𝒸𝑜𝓂𝑒 𝒻𝓊𝓃𝓏𝒾𝑜𝓃𝒶</h2>
       <ol class="step-list">
-        <li><span class="step-num">1</span> Guarda il <strong>listino</strong> su Telegram.</li>
-        <li><span class="step-num">2</span> Scrivimi nel <strong>gruppo</strong> o in privato con quello che ti interessa.</li>
-        <li><span class="step-num">3</span> Ricevi tutto direttamente in chat. ✨</li>
+        <li><span class="step-num">1</span><span class="step-text">Guarda il <strong>listino</strong> su Telegram.</span></li>
+        <li><span class="step-num">2</span><span class="step-text">Scrivimi nel <strong>gruppo</strong> o in privato con quello che ti interessa.</span></li>
+        <li><span class="step-num">3</span><span class="step-text">Ricevi tutto direttamente in chat. ✨</span></li>
       </ol>
     </section>
 

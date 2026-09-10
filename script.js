@@ -102,7 +102,8 @@ function toast(msg) {
   t.textContent = msg;
   t.style.cssText = `
     position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px);
-    background: #000; color: #e9e1e9; padding: .7rem 1.2rem; border-radius: 999px;
+    background: #ff5fbf; color: #1a0716; padding: .7rem 1.2rem; border-radius: 999px;
+    box-shadow: 0 0 20px #ff5fbf; font-weight: 700;
     font-family: inherit; font-size: .9rem; z-index: 60; opacity: 0;
     transition: opacity .3s ease, transform .3s ease;
   `;
@@ -143,7 +144,7 @@ if (sessionStorage.getItem(GATE_KEY) === "1") {
 /* ---------- Reveal on scroll ---------- */
 
 function startObservers() {
-  const items = document.querySelectorAll(".card, .step-list li");
+  const items = document.querySelectorAll(".hl, .step-list li");
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -160,59 +161,172 @@ function startObservers() {
   items.forEach((el) => io.observe(el));
 }
 
-/* ---------- Petali / cuoricini soft su Canvas ---------- */
+/* ---------- Sparkles e cuoricini rosa su Canvas HTML5 ---------- */
 
-const canvas = document.getElementById("petals");
+const canvas = document.getElementById("sparkles");
 const ctx = canvas.getContext("2d");
-let W = 0, H = 0, petals = [];
+let W = 0, H = 0, sparkles = [];
 
 function resize() {
   W = canvas.width = window.innerWidth;
   H = canvas.height = window.innerHeight;
 }
 
-class Petal {
+const PALETTE = ["#ff5fbf", "#ff9ad5", "#ffc6e8", "#c76bff", "#ffffff"];
+
+class Sparkle {
   constructor() { this.reset(true); }
   reset(initial = false) {
     this.x = Math.random() * W;
-    this.y = initial ? Math.random() * H : -20;
-    this.size = Math.random() * 6 + 4;
-    this.vy = Math.random() * 0.5 + 0.25;
-    this.vx = (Math.random() - 0.5) * 0.4;
-    this.rot = Math.random() * Math.PI * 2;
-    this.vr = (Math.random() - 0.5) * 0.02;
-    this.color = Math.random() > 0.5 ? "rgba(201,139,214,0.45)" : "rgba(242,183,216,0.5)";
+    this.y = initial ? Math.random() * H : H + 10;
+    this.size = Math.random() * 2.5 + 0.8;
+    this.vy = Math.random() * 0.5 + 0.15;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+    this.twinkle = Math.random() * Math.PI * 2;
+    this.isHeart = Math.random() < 0.18;
   }
   update() {
-    this.y += this.vy;
-    this.x += this.vx + Math.sin(this.y / 60) * 0.3;
-    this.rot += this.vr;
-    if (this.y > H + 20) this.reset();
+    this.y -= this.vy;
+    this.x += this.vx;
+    this.twinkle += 0.05;
+    if (this.y < -10) this.reset();
   }
   draw() {
-    ctx.save();
-    ctx.translate(this.x, this.y);
-    ctx.rotate(this.rot);
+    ctx.globalAlpha = Math.max(0, 0.4 + Math.sin(this.twinkle) * 0.4);
     ctx.fillStyle = this.color;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, this.size, this.size * 0.55, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
+    if (this.isHeart) {
+      drawHeart(this.x, this.y, this.size * 3);
+    } else {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
   }
 }
 
-function initPetals() {
-  const n = Math.min(60, Math.floor((W * H) / 30000));
-  petals = Array.from({ length: n }, () => new Petal());
+function drawHeart(x, y, s) {
+  ctx.beginPath();
+  ctx.moveTo(x, y + s / 4);
+  ctx.bezierCurveTo(x, y, x - s / 2, y, x - s / 2, y + s / 4);
+  ctx.bezierCurveTo(x - s / 2, y + s / 2, x, y + s * 0.75, x, y + s);
+  ctx.bezierCurveTo(x, y + s * 0.75, x + s / 2, y + s / 2, x + s / 2, y + s / 4);
+  ctx.bezierCurveTo(x + s / 2, y, x, y, x, y + s / 4);
+  ctx.fill();
+}
+
+function initSparkles() {
+  const n = Math.min(160, Math.floor((W * H) / 10000));
+  sparkles = Array.from({ length: n }, () => new Sparkle());
 }
 
 function loop() {
   ctx.clearRect(0, 0, W, H);
-  petals.forEach((p) => { p.update(); p.draw(); });
+  sparkles.forEach((s) => { s.update(); s.draw(); });
   requestAnimationFrame(loop);
 }
 
-window.addEventListener("resize", () => { resize(); initPetals(); });
+window.addEventListener("resize", () => { resize(); initSparkles(); });
 resize();
-initPetals();
+initSparkles();
 loop();
+
+/* ---------- Esplosione di cuori al click ---------- */
+
+function burst(x, y, symbols = ["💗", "🩷", "💖", "✨", "🐾"]) {
+  for (let i = 0; i < 14; i++) {
+    const el = document.createElement("span");
+    el.className = "burst";
+    el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    el.style.left = `${x}px`;
+    el.style.top = `${y}px`;
+    el.style.fontSize = `${Math.random() * 14 + 14}px`;
+    document.body.appendChild(el);
+    const a = Math.random() * Math.PI * 2;
+    const d = Math.random() * 140 + 60;
+    requestAnimationFrame(() => {
+      el.style.transform = `translate(${Math.cos(a) * d}px, ${Math.sin(a) * d - 80}px) rotate(${Math.random() * 360}deg)`;
+      el.style.opacity = "0";
+    });
+    setTimeout(() => el.remove(), 1200);
+  }
+}
+
+document.addEventListener("click", (e) => burst(e.clientX, e.clientY));
+
+/* ---------- Gattini 3D da schiacciare ---------- */
+
+const GOAL = 15;
+const PET_MESSAGES = [
+  "miao~ 💗", "purr purr", "ancora! ✨", "che coccole", "nyaa~", "sono tuo 🐾",
+  "più forte!", "mrrrp", "adoro", "non fermarti", "meow meow", "❤️❤️❤️",
+];
+
+const cards = document.querySelectorAll(".card3d");
+const petCountEl = document.getElementById("petCount");
+const progressFill = document.getElementById("progressFill");
+const reward = document.getElementById("reward");
+document.getElementById("goal").textContent = GOAL;
+
+let petCount = 0;
+let rewarded = false;
+
+cards.forEach((card) => {
+  const msg = document.createElement("div");
+  msg.className = "card-msg";
+  card.appendChild(msg);
+  let msgTimer;
+
+  card.querySelector("img").addEventListener("error", () => card.classList.add("no-img"));
+
+  const tilt = (cx, cy) => {
+    if (card.classList.contains("squish")) return;
+    const r = card.getBoundingClientRect();
+    const px = (cx - r.left) / r.width - 0.5;
+    const py = (cy - r.top) / r.height - 0.5;
+    card.style.transform = `rotateY(${px * 28}deg) rotateX(${-py * 28}deg) translateZ(16px) scale(1.04)`;
+  };
+  const resetTilt = () => { card.style.transform = ""; };
+
+  card.addEventListener("mousemove", (e) => tilt(e.clientX, e.clientY));
+  card.addEventListener("mouseleave", resetTilt);
+  card.addEventListener("touchmove", (e) => tilt(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+  card.addEventListener("touchend", resetTilt);
+
+  card.addEventListener("click", (e) => {
+    // squish
+    card.style.transform = "";
+    card.classList.remove("squish");
+    void card.offsetWidth;
+    card.classList.add("squish");
+    setTimeout(() => card.classList.remove("squish"), 460);
+
+    // messaggio
+    msg.textContent = PET_MESSAGES[Math.floor(Math.random() * PET_MESSAGES.length)];
+    msg.classList.add("show");
+    clearTimeout(msgTimer);
+    msgTimer = setTimeout(() => msg.classList.remove("show"), 900);
+
+    // contatore
+    petCount++;
+    petCountEl.textContent = petCount;
+    petCountEl.classList.remove("pop");
+    void petCountEl.offsetWidth;
+    petCountEl.classList.add("pop");
+    progressFill.style.width = `${Math.min(100, (petCount / GOAL) * 100)}%`;
+
+    burst(e.clientX, e.clientY, ["🐾", "💗", "🩷", "✨"]);
+
+    if (petCount >= GOAL && !rewarded) {
+      rewarded = true;
+      reward.hidden = false;
+      setTimeout(() => reward.scrollIntoView({ behavior: "smooth", block: "center" }), 200);
+      let n = 0;
+      const rain = setInterval(() => {
+        burst(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+        if (++n > 6) clearInterval(rain);
+      }, 160);
+    }
+  });
+});
