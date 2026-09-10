@@ -693,6 +693,12 @@ body.locked {
   transform: none;
 }
 
+.step-text {
+  flex: 1;
+  text-align: left;
+  line-height: 1.5;
+}
+
 .step-list strong {
   color: var(--pink-2);
 }
