@@ -15,6 +15,12 @@ const LINKS = [
     icon: "tag",
   },
   {
+    label: "𝑜𝓃𝓁𝓎𝒻𝒶𝓃𝓈",
+    url: "", // inserisci il link OnlyFans quando è pronto
+    icon: "onlyfans",
+    badge: "a breve",
+  },
+  {
     label: "𝒹𝒾𝓈𝒸𝑜𝓇𝒹",
     url: "https://discord.com/invite/mami",
     icon: "discord",
@@ -45,6 +51,7 @@ const ICONS = {
   tag: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/></svg>`,
   discord: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 5.3A17 17 0 0 0 15.3 4l-.2.4a15.6 15.6 0 0 1 3.9 1.9 14 14 0 0 0-14 0A15.6 15.6 0 0 1 8.9 4.4L8.7 4a17 17 0 0 0-4.2 1.3C1.8 9.3 1.1 13.2 1.4 17a17 17 0 0 0 5.2 2.6l1.1-1.8a11 11 0 0 1-1.7-.8l.4-.3a12.3 12.3 0 0 0 11.2 0l.4.3-1.7.8 1.1 1.8a17 17 0 0 0 5.2-2.6c.4-4.4-.7-8.3-3.1-11.7zM8.7 14.6c-1 0-1.9-.9-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.9 2.1-1.9 2.1zm6.6 0c-1 0-1.9-.9-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1z"/></svg>`,
   instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>`,
+  onlyfans: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="12" r="7"/><circle cx="10" cy="12" r="2.5" fill="currentColor" stroke="none"/><path d="M15.5 5.5c3.3 0 5.5 1.5 6 4.5-.5 3-2.7 4.5-6 4.5" stroke-linecap="round"/></svg>`,
   tiktok: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2c.3 2.4 1.7 3.9 4 4.1v3.3c-1.5 0-2.9-.5-4-1.3v6.9c0 3.7-3 6.5-6.5 6.5A6.4 6.4 0 0 1 3.5 15c0-3.7 3.1-6.6 6.9-6.4v3.4c-1.8-.3-3.5 1-3.5 3 0 1.7 1.4 3.1 3.1 3.1 1.8 0 3.2-1.4 3.2-3.2V2h3.3z"/></svg>`,
 };
 
@@ -64,10 +71,10 @@ LINKS.forEach((link, i) => {
   } else {
     a.href = "#";
     a.title = "Disponibile a breve";
-    a.style.opacity = "0.55";
+    a.classList.add("soon");
     a.addEventListener("click", (e) => {
       e.preventDefault();
-      toast("Disponibile a breve ✨");
+      toast(`${link.label} disponibile a breve ✨ nel frattempo scrivimi su Telegram 💗`);
     });
   }
 

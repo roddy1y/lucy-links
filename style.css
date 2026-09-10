@@ -351,6 +351,17 @@ body.locked {
   animation: pulse 2.2s ease-in-out infinite;
 }
 
+.btn.soon {
+  opacity: 0.6;
+  border-style: dashed;
+  box-shadow: 0 6px 0 #6d1a52, 0 0 15px rgba(255, 95, 191, 0.2);
+}
+
+.btn.soon .badge {
+  background: var(--purple);
+  box-shadow: 0 0 12px var(--purple);
+}
+
 @keyframes pulse {
   0%, 100% { box-shadow: 0 6px 0 #a3237a, 0 0 0 0 rgba(255, 95, 191, 0.6); }
   50% { box-shadow: 0 6px 0 #a3237a, 0 0 0 12px rgba(255, 95, 191, 0); }
